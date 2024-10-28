@@ -24,6 +24,8 @@ services:
       WATSONX_REGION: ${WATSONX_REGION}
       BAM_API_KEY: ${BAM_API_KEY:-dummy}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-dummy}
+      OLLAMA_HOST: ${OLLAMA_HOST:-dummy}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-dummy}
 
       MONGODB_URL: mongodb://mongo:27017?directConnection=true
       MONGODB_DATABASE_NAME: bee-api
