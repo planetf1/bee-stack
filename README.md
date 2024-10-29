@@ -68,12 +68,49 @@ docker compose --profile all down --volumes
 
 ## Advanced 👷
 
+### Development
 If you are a developer on `bee-api` or `bee-ui` and want to run only the supporting infrastructure,
 use the profile `infra`, e.g.:
 
 ```shell
 docker compose --profile infra up -d
 ```
+### podman compose
+
+Podman supports multiple [providers](https://docs.podman.io/en/latest/markdown/podman-compose.1.html), specifically `docker-compose` and `podman-compose`. 
+
+For the bee framework the `docker-compose` provider is required. This will need to be installed`
+
+### Connecting to host resources
+
+There are many networking options in both [Podman](https://github.com/containers/podman/blob/main/docs/tutorials/basic_networking.md) and [Docker](https://docs.docker.com/engine/network/)
+
+The bee stack does not explicitly configure a network, so by default typically a bridge network is generated automatically. Additionally a specific host name is made available to the container which represents the host. This can be used to access other services on that host, such as ollama running locally.
+
+The hostnames are:
+* host.containers.internal (podman)
+* host.docker.internal (docker)
+
+Below is an example `.env` configuration for a podman environment which will allow the bee stack to connect back to ollama running on the host
+```
+LLM_BACKEND=ollama
+EMBEDDING_BACKEND=ollama
+WATSONX_PROJECT_ID=
+WATSONX_API_KEY=
+WATSONX_REGION=us-south
+OLLAMA_HOST=http://host.containers.internal:11434
+OLLAMA_MODEL="llama3.1:8b"
+```
+
+# Troubleshooting
+
+## podman/macos: crun: setrlimit `RLIMIT_NPROC`: Operation not permitted: OCI permission denied
+
+The error `Error: crun: setrlimit `RLIMIT_NPROC`: Operation not permitted: OCI permission denied` has been seen on macOS when trying to start up the bee stack. The error relates to setting resource limits (ulimits) in the compose definition.
+
+Podman supports multiple [compose providers](https://docs.podman.io/en/latest/markdown/podman-compose.1.html), specifically `docker-compose` and `podman-compose`. 
+
+This issue has been seen with `podman-compose`. Installing the `docker-compose` provider should resolve this issue, as the `podman compose` command will pick it up automatically.
 
 # Contributing
 
