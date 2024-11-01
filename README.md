@@ -75,12 +75,6 @@ use the profile `infra`, e.g.:
 ```shell
 docker compose --profile infra up -d
 ```
-### podman compose
-
-Podman supports multiple [providers](https://docs.podman.io/en/latest/markdown/podman-compose.1.html), specifically `docker-compose` and `podman-compose`. 
-
-For the bee framework the `docker-compose` provider is required. This will need to be installed`
-
 ### Connecting to host resources
 
 There are many networking options in both [Podman](https://github.com/containers/podman/blob/main/docs/tutorials/basic_networking.md) and [Docker](https://docs.docker.com/engine/network/)
@@ -101,16 +95,6 @@ WATSONX_REGION=us-south
 OLLAMA_HOST=http://host.containers.internal:11434
 OLLAMA_MODEL="llama3.1:8b"
 ```
-
-# Troubleshooting
-
-## podman/macos: crun: setrlimit `RLIMIT_NPROC`: Operation not permitted: OCI permission denied
-
-The error `Error: crun: setrlimit `RLIMIT_NPROC`: Operation not permitted: OCI permission denied` has been seen on macOS when trying to start up the bee stack. The error relates to setting resource limits (ulimits) in the compose definition.
-
-Podman supports multiple [compose providers](https://docs.podman.io/en/latest/markdown/podman-compose.1.html), specifically `docker-compose` and `podman-compose`. 
-
-This issue has been seen with `podman-compose`. Installing the `docker-compose` provider should resolve this issue, as the `podman compose` command will pick it up automatically.
 
 # Contributing
 
