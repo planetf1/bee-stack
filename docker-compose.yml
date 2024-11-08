@@ -72,7 +72,7 @@ services:
       retries: 20
       start_period: 5s
     volumes:
-      - /home/jonesn/ai/bee/interpreter-storage:/storage
+      - /Users/jonesn/ai/bee/interpreter-storage:/storage
     ports:
       - "4000:4000"
     profiles: [ all ]
@@ -133,7 +133,7 @@ services:
     restart: always
     volumes:
       - k3s-containerd:/var/lib/rancher/k3s/agent/containerd
-      - /home/jonesn/ai/bee/interpreter-storage:/storage
+      - /Users/jonesn/ai/bee/interpreter-storage:/storage
       - ./bee-code-interpreter.yaml:/var/lib/rancher/k3s/server/manifests/bee-code-interpreter.yaml
     ports:
       - "50051:30051"
